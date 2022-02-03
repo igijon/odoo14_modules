@@ -2,21 +2,17 @@
 {
     'name': "school",
 
-    'summary': """
-        Short (1 phrase/line) summary of the module's purpose, used as
-        subtitle on modules listing or apps.openerp.com""",
+    'summary': "Módulo para aprender a desarrollar módulos para Odoo 14 utilizando el framework de Odoo y Python",
 
-    'description': """
-        Long description of module's purpose
-    """,
+    'description': "En este módulo crearemos modelos, relaciones entre modelos, vistas, campos enumerados y todo lo más destacado para tener una idea general de la creación de módulos para Odoo",
 
-    'author': "My Company",
-    'website': "http://www.yourcompany.com",
+    'author': 'Inma Gijón',
+    'website': 'https://github.com/igijon',
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': 'Educación',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
