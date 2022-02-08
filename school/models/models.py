@@ -25,3 +25,6 @@ class classroom(models.Model):
     _description = 'Las clases'
 
     name = fields.Char() # Todos los modelos deben tener un field name
+    #Se declara como un field pero no se guarda en BDD porque es simplemente una
+    #consulta a partir de many2one que sí se guarda en BDD
+    students = fields.One2many("school.student", 'classroom')
