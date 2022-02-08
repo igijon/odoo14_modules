@@ -15,7 +15,5 @@ class student(models.Model):
     inscription_date = fields.Date()
     last_login = fields.Datetime()
     is_student = fields.Boolean()
-    photo = fields.Binary()
-    # Este es el formato tradicional para guardar fotos, aunque ahora hay uno
-    # imagen en las versiones actuales de Odoo que veremos después
-    
+    photo = fields.Image(max_width=200, max_height=200) 
+    # Field binario pero específico para imágenes
