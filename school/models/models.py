@@ -15,9 +15,11 @@ class student(models.Model):
     inscription_date = fields.Date()
     last_login = fields.Datetime()
     is_student = fields.Boolean()
-    photo = fields.Image(max_width=200, max_height=200) 
     # Field binario pero específico para imágenes
-
+    photo = fields.Image(max_width=200, max_height=200) 
+    # Clave ajena a la clave primaria de classroom
+    classroom = fields.Many2one("school.classroom")
+    
 class classroom(models.Model):
     _name = 'school.classroom'
     _description = 'Las clases'
