@@ -17,3 +17,9 @@ class student(models.Model):
     is_student = fields.Boolean()
     photo = fields.Image(max_width=200, max_height=200) 
     # Field binario pero específico para imágenes
+
+class classroom(models.Model):
+    _name = 'school.classroom'
+    _description = 'Las clases'
+
+    name = fields.Char() # Todos los modelos deben tener un field name
