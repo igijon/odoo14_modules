@@ -11,12 +11,11 @@ class student(models.Model):
     # Help nos permite que cuando nos posicionamos con el ratón aparezca el mensaje
     name = fields.Char(string="Nombre", readonly=False, required=True, help='Este es el nombre')
     birth_year = fields.Integer()
-    #birth_year = fields.Integer()
-#     value = fields.Integer()
-#     value2 = fields.Float(compute="_value_pc", store=True)
-#     description = fields.Text()
-#
-#     @api.depends('value')
-#     def _value_pc(self):
-#         for record in self:
-#             record.value2 = float(record.value) / 100
+    description = fields.Text()
+    inscription_date = fields.Date()
+    last_login = fields.Datetime()
+    is_student = fields.Boolean()
+    photo = fields.Binary()
+    # Este es el formato tradicional para guardar fotos, aunque ahora hay uno
+    # imagen en las versiones actuales de Odoo que veremos después
+    
