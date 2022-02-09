@@ -28,7 +28,7 @@ class classroom(models.Model):
     name = fields.Char() # Todos los modelos deben tener un field name
     #Se declara como un field pero no se guarda en BDD porque es simplemente una
     #consulta a partir de many2one que sí se guarda en BDD
-    students = fields.One2many("school.student", 'classroom')
+    students = fields.One2many(string="Alumnos", comodel_name='school.student', inverse_name='classroom')
     teachers = fields.Many2many('school.teacher')
 
 class teacher(models.Model):
