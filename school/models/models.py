@@ -7,29 +7,33 @@ class student(models.Model):
     _name = 'school.student'
     _description = 'school.student'
     
-    #Indicamos cómo aparece en la vista que no es de sólo lectura y que es obligatorio
-    # Help nos permite que cuando nos posicionamos con el ratón aparezca el mensaje
     name = fields.Char(string="Nombre", readonly=False, required=True, help='Este es el nombre')
     birth_year = fields.Integer()
+    
+    """ Vamos a crear un campo passwd que sea calculado. Un campo computado es un field normal calculado sobre la marcha """
+    password = fields.Char(compute='_get_password')
+
     description = fields.Text()
     inscription_date = fields.Date()
     last_login = fields.Datetime()
     is_student = fields.Boolean()
-    # Field binario pero específico para imágenes
     photo = fields.Image(max_width=200, max_height=200) 
-    # Clave ajena a la clave primaria de classroom
     classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
-    # ondelete: con set null el estudiante  se queda sin la clase, es la opción por defecto. Con restrict, no se elimina la clase en el estudiante
-    
-    """ Queremos que el estudiante muestre la lista de profesores que le dan clase, a nivel de BDD no tiene sentido, pero puede tener sentido mostrar la información
-        en el modelo.
-        En este caso no quiero que la relación sea una nueva tabla, quiero que tire de la intermedia creada entre classroom y teachers y voy a utilizar el atributo
-        related. Es importante que el campo destino de related sea igual que el campo al que estamos estableciendo la relación, es decir, classroom.teachers hace
-        referencia al atributo teachers de la clase classroom y esta ya tira de la tabla correspondiente.
-        
-        Si añadimos el atributo store=True, se almacenaría en BDD pero sería información redundante"""
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
     
+    """ Al método le puede llegar una lista de uno o más estudiantes. Self es una lista de estudiantes, si sólo es uno, tendrá sólo un elemento
+    A la función le ponemos el _ para indicar que sea privada
+    Si quisiésemos que en lugar de una lista, recibiese un único estudiante, tendríamos que poner un decorador @api.one"""
+    def _get_password(self):
+        # Podemos imprimir lo que está ocurriendo en el terminal por el momento, después usaremos el log
+        print(self)
+        # Todas las funciones que calculan campos deben recorrer la lista de estudiantes.
+        for student in self:
+            # Student es una instancia del modelo student
+            student.password = '1234' # Como ejemplo estamos asignando a todos los estudiantes la misma contraseña
+            print(student)
+
+
 
 class classroom(models.Model):
     _name = 'school.classroom'
