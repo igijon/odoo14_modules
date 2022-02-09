@@ -19,6 +19,7 @@ class student(models.Model):
     photo = fields.Image(max_width=200, max_height=200) 
     # Clave ajena a la clave primaria de classroom
     classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
+    # ondelete: con set null el estudiante  se queda sin la clase, es la opción por defecto. Con restrict, no se elimina la clase en el estudiante
     
 class classroom(models.Model):
     _name = 'school.classroom'
