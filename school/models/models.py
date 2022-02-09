@@ -10,7 +10,7 @@ class student(models.Model):
     name = fields.Char(string="Nombre", readonly=False, required=True, help='Este es el nombre')
     birth_year = fields.Integer()
     
-    password = fields.Char(compute='_get_password', store=True) # store True para que sólo se calcule una vez
+    password = fields.Char(compute='_get_password', store=True) 
 
     description = fields.Text()
     inscription_date = fields.Date()
@@ -20,13 +20,14 @@ class student(models.Model):
     classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
     
-    @api.depends('name') # Se calculará sólo cuando cambie o se cree el campo nombre
+    @api.depends('name') 
     def _get_password(self):
         print(self)
         for student in self:
-            # Generamos la password de forma más segura con la librería secrets de python
-            student.password = secrets.token_urlsafe(12) # Genera un token de 12 bytes
-            print(student)
+            student.password = secrets.token_urlsafe(12) 
+            # Los mensajes aparecerán de color azul. 94 indica el azul y el 0 vuelve a colocar el color negro después.
+            # La secuencia \033 es la que permite que cambie de color
+            print('\033[94m', student, '\033[0m') 
 
 
 
