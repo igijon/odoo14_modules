@@ -21,8 +21,15 @@ class student(models.Model):
     classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
     # ondelete: con set null el estudiante  se queda sin la clase, es la opción por defecto. Con restrict, no se elimina la clase en el estudiante
     
+    """ Queremos que el estudiante muestre la lista de profesores que le dan clase, a nivel de BDD no tiene sentido, pero puede tener sentido mostrar la información
+        en el modelo.
+        En este caso no quiero que la relación sea una nueva tabla, quiero que tire de la intermedia creada entre classroom y teachers y voy a utilizar el atributo
+        related. Es importante que el campo destino de related sea igual que el campo al que estamos estableciendo la relación, es decir, classroom.teachers hace
+        referencia al atributo teachers de la clase classroom y esta ya tira de la tabla correspondiente.
+        
+        Si añadimos el atributo store=True, se almacenaría en BDD pero sería información redundante"""
+    teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
     
-
 
 class classroom(models.Model):
     _name = 'school.classroom'
