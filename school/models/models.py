@@ -21,6 +21,9 @@ class student(models.Model):
     classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
     # ondelete: con set null el estudiante  se queda sin la clase, es la opción por defecto. Con restrict, no se elimina la clase en el estudiante
     
+    
+
+
 class classroom(models.Model):
     _name = 'school.classroom'
     _description = 'Las clases'
@@ -36,6 +39,12 @@ class classroom(models.Model):
                                 relation='teachers_classroom',
                                 column1='classroom_id',
                                 column2='teacher_id')
+
+    #Queremos hacer una referencia a profesores del año pasado
+    teachers_last_year = fields.Many2many(comodel_name='school.teacher',
+                                relation='teachers_classroom_ly',
+                                column1='classroom_id',
+                                column2='teacher_id')
     
 
 class teacher(models.Model):
@@ -46,5 +55,11 @@ class teacher(models.Model):
     # un profesor puede dar clase en varias aulas y en un aula, varios profesores
     classrooms = fields.Many2many(comodel_name='school.classroom',
                                   relation='teachers_classroom',
+                                  column1='teacher_id',
+                                  column2='classroom_id')
+
+    # Queremos hacer una referencia a clases del año pasado.
+    classrooms_ly = fields.Many2many(comodel_name='school.classroom',
+                                  relation='teachers_classroom_ly',
                                   column1='teacher_id',
                                   column2='classroom_id')
