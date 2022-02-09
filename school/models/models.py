@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-
+import secrets
 
 class student(models.Model):
     _name = 'school.student'
@@ -21,16 +21,11 @@ class student(models.Model):
     classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
     
-    """ Al método le puede llegar una lista de uno o más estudiantes. Self es una lista de estudiantes, si sólo es uno, tendrá sólo un elemento
-    A la función le ponemos el _ para indicar que sea privada
-    Si quisiésemos que en lugar de una lista, recibiese un único estudiante, tendríamos que poner un decorador @api.one"""
     def _get_password(self):
-        # Podemos imprimir lo que está ocurriendo en el terminal por el momento, después usaremos el log
         print(self)
-        # Todas las funciones que calculan campos deben recorrer la lista de estudiantes.
         for student in self:
-            # Student es una instancia del modelo student
-            student.password = '1234' # Como ejemplo estamos asignando a todos los estudiantes la misma contraseña
+            # Generamos la password de forma más segura con la librería secrets de python
+            student.password = secrets.test_token_urlsafe(12) # Genera un token de 12 bytes
             print(student)
 
 
