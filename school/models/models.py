@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
-from odoo import _
-from odoo.exceptions import Warning
 import secrets
+# Para mandar información al log que se muestra en el terminal
+import logging
+
+_logger = logging.getLogger(__name__)
 
 class student(models.Model):
     _name = 'school.student'
@@ -27,11 +29,9 @@ class student(models.Model):
         print(self)
         for student in self:
             student.password = secrets.token_urlsafe(12) 
-            print('\033[94m', student, '\033[0m') 
-            # Aquí no tiene sentido, pero es para verlo como ejemplo
-            raise Warning(_('Se ha producido un Warning!'))
-
-
+            _logger.debug('\033[94m'+str(student)+'\033[0m')
+            # Si quiero que al arrancar el servicio aparezca la información de debug tengo que poner odoo -u school -d db_name --log-level=debug
+            # Nunca lo haremos con print. Igual que he hecho para debug, puedo hacer para warning...
 
 class classroom(models.Model):
     _name = 'school.classroom'
