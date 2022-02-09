@@ -2,12 +2,15 @@
   <data>
     <!-- explicit list view definition -->
 
+    <!--A veces las vistas no cogen los cambios y debemos eliminarla desde Técnico > Interfaz de usuario > Vistas y al reiniciar el
+    servicio se vuelve a generar-->
     <record model="ir.ui.view" id="school.student_list">
       <field name="name">school.student list</field>
       <field name="model">school.student</field>
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
+          <field name="password" />
           <field name="birth_year" />
         </tree>
       </field>
