@@ -25,4 +25,5 @@ class classroom(models.Model):
     _description = 'Las clases'
     
     name = fields.Char()
+    students = fields.One2many("school.student", 'classroom')
     
