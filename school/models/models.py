@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo import _
+from odoo.exceptions import Warning
 import secrets
 
 class student(models.Model):
@@ -25,9 +27,9 @@ class student(models.Model):
         print(self)
         for student in self:
             student.password = secrets.token_urlsafe(12) 
-            # Los mensajes aparecerán de color azul. 94 indica el azul y el 0 vuelve a colocar el color negro después.
-            # La secuencia \033 es la que permite que cambie de color
             print('\033[94m', student, '\033[0m') 
+            # Aquí no tiene sentido, pero es para verlo como ejemplo
+            raise Warning(_('Se ha producido un Warning!'))
 
 
 
