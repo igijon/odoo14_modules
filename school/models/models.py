@@ -46,18 +46,23 @@ class classroom(models.Model):
                                 column1='classroom_id',
                                 column2='teacher_id')
     
-    """ Campo computado relacional: aunque no sea común vamos a considerar que una clase tiene un coordinador que 
-    será un profesor, y que un profesor puede ser coordinador de muchas clases.
-    Para este ejemplo, consideramos que el coordinador va a ser el primero de la lista de profesores
-    de la clase. Tenemos que poner el id para que funcione correctamente, porque lo que necesita es el
-    identificador de la clave ajena a la que apuntará """
     coordinator = fields.Many2one('school.teacher', compute='_get_coordinator')
+
+    """ Otro campo calculado (sin sentido, sólo ejemplo):  Vamos a mostrar un campo All teachers
+    en el que aparezcan todos los profesores, los actuales y los del año pasado"""
+    all_teachers = fields.Many2many('school.teacher', compute="_get_teacher")
 
     def _get_coordinator(self):
         for classroom in self:
             if len(classroom.teachers) > 0:
                 # Si la clase no tiene profesores asociados esto fallará por ahora
                 classroom.coordinator = classroom.teachers[0].id
+
+    def _get_teacher(self):
+        for classroom in self:
+            # para trabajar acepta o lista de id o recordset, las dos cosas le valen. 
+            # En este caso le metemos recordset
+            classroom.all_teachers = classroom.teachers + classroom.teachers_last_year
 
 
 class teacher(models.Model):
