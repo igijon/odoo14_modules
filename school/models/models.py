@@ -18,7 +18,7 @@ class student(models.Model):
     # Field binario pero específico para imágenes
     photo = fields.Image(max_width=200, max_height=200) 
     # Clave ajena a la clave primaria de classroom
-    classroom = fields.Many2one("school.classroom")
+    classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
     
 class classroom(models.Model):
     _name = 'school.classroom'
