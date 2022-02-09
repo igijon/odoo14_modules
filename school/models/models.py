@@ -29,7 +29,14 @@ class classroom(models.Model):
     #Se declara como un field pero no se guarda en BDD porque es simplemente una
     #consulta a partir de many2one que sí se guarda en BDD
     students = fields.One2many(string="Alumnos", comodel_name='school.student', inverse_name='classroom')
-    teachers = fields.Many2many('school.teacher')
+    
+    #relation: nombre de la tabla intermedia que se genera. Si no, Odoo establece 1.
+    #column1 y column2, nombre de las columnas que van a hacer referencia al modelo de la clase actual y de la clase con la que referenciamos
+    teachers = fields.Many2many(comodel_name='school.teacher',
+                                relation='teachers_classroom',
+                                column1='classroom_id',
+                                column2='teacher_id')
+    
 
 class teacher(models.Model):
     _name = 'school.teacher'
@@ -37,4 +44,7 @@ class teacher(models.Model):
 
     name = fields.Char()
     # un profesor puede dar clase en varias aulas y en un aula, varios profesores
-    classrooms = fields.Many2many('school.classroom')
+    classrooms = fields.Many2many(comodel_name='school.classroom',
+                                  relation='teachers_classroom',
+                                  column1='teacher_id',
+                                  column2='classroom_id')
