@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-
 from odoo import models, fields, api
 import secrets
-# Para mandar información al log que se muestra en el terminal
 import logging
 
 _logger = logging.getLogger(__name__)
@@ -30,31 +28,37 @@ class student(models.Model):
         for student in self:
             student.password = secrets.token_urlsafe(12) 
             _logger.debug('\033[94m'+str(student)+'\033[0m')
-            # Si quiero que al arrancar el servicio aparezca la información de debug tengo que poner odoo -u school -d db_name --log-level=debug
-            # Nunca lo haremos con print. Igual que he hecho para debug, puedo hacer para warning...
 
 class classroom(models.Model):
     _name = 'school.classroom'
     _description = 'Las clases'
 
-    name = fields.Char() # Todos los modelos deben tener un field name
-    #Se declara como un field pero no se guarda en BDD porque es simplemente una
-    #consulta a partir de many2one que sí se guarda en BDD
+    name = fields.Char() 
     students = fields.One2many(string="Alumnos", comodel_name='school.student', inverse_name='classroom')
     
-    #relation: nombre de la tabla intermedia que se genera. Si no, Odoo establece 1.
-    #column1 y column2, nombre de las columnas que van a hacer referencia al modelo de la clase actual y de la clase con la que referenciamos
     teachers = fields.Many2many(comodel_name='school.teacher',
                                 relation='teachers_classroom',
                                 column1='classroom_id',
                                 column2='teacher_id')
 
-    #Queremos hacer una referencia a profesores del año pasado
     teachers_last_year = fields.Many2many(comodel_name='school.teacher',
                                 relation='teachers_classroom_ly',
                                 column1='classroom_id',
                                 column2='teacher_id')
     
+    """ Campo computado relacional: aunque no sea común vamos a considerar que una clase tiene un coordinador que 
+    será un profesor, y que un profesor puede ser coordinador de muchas clases.
+    Para este ejemplo, consideramos que el coordinador va a ser el primero de la lista de profesores
+    de la clase. Tenemos que poner el id para que funcione correctamente, porque lo que necesita es el
+    identificador de la clave ajena a la que apuntará """
+    coordinator = fields.Many2one('school.teacher', compute='_get_coordinator')
+
+    def _get_coordinator(self):
+        for classroom in self:
+            if len(classroom.teachers) > 0:
+                # Si la clase no tiene profesores asociados esto fallará por ahora
+                classroom.coordinator = classroom.teachers[0].id
+
 
 class teacher(models.Model):
     _name = 'school.teacher'
