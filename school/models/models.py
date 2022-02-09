@@ -25,7 +25,7 @@ class student(models.Model):
         print(self)
         for student in self:
             # Generamos la password de forma más segura con la librería secrets de python
-            student.password = secrets.test_token_urlsafe(12) # Genera un token de 12 bytes
+            student.password = secrets.token_urlsafe(12) # Genera un token de 12 bytes
             print(student)
 
 
