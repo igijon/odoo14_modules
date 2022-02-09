@@ -15,7 +15,14 @@ class student(models.Model):
     inscription_date = fields.Date()
     last_login = fields.Datetime()
     is_student = fields.Boolean()
-    photo = fields.Binary()
+    photo = fields.Image()
     # Este es el formato tradicional para guardar fotos, aunque ahora hay uno
     # imagen en las versiones actuales de Odoo que veremos después
+    classroom = fields.Many2one('school.classroom')
+    
+class classroom(models.Model):
+    _name = 'school.classroom'
+    _description = 'Las clases'
+    
+    name = fields.Char()
     
