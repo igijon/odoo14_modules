@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 import secrets
 import logging
+import re
 
 _logger = logging.getLogger(__name__)
 
@@ -11,6 +13,11 @@ class student(models.Model):
     
     name = fields.Char(string="Nombre", readonly=False, required=True, help='Este es el nombre')
     birth_year = fields.Integer()
+
+    """Vamos a añadir un DNI que va a ser de tipo Char. Los DNI tienen que cumplir un patrón
+    Para ello, vamos a crear una función con el decorador @api.constrains('dni') y debemos tener en cuenta que este tipo de funciones reciben una lista de estudiantes, no un único estudiante.
+    Para hacer este tipo de checkeos vamos a utilizar las expresiones regulares en python"""
+    dni = fields.Char(string="DNI")
     
     # También podemos hacerlo con una función lambda. Estas funciones son funciones que aceptan sólo una línea de código
     # aunque dicha línea de código llame a otra función.
@@ -32,6 +39,18 @@ class student(models.Model):
     classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
 
+    
+    @api.constrains('dni')
+    def _check_dni(self):
+        regex = re.compile('[0-9]{8}[a-z]\Z', re.I) #re.I ignoreCase
+        for student in self:
+            # Ahora vamos a validar si se cumple la condición
+            if regex.match(student.dni):
+                _logger.info('DNI correcto')
+            else:
+                # No coinciden por lo que tenemos que informar e impedir que se guarde
+                raise ValidationError('Formato incorrecto: DNI')
+                # Si el DNI no es válido no nos permitirá guardar
 
 class classroom(models.Model):
     _name = 'school.classroom'
