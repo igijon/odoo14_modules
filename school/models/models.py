@@ -21,8 +21,10 @@ class student(models.Model):
 
     # También es muy útil establecer como valor por defecto en los campos Date, la fecha de hoy
     inscription_date = fields.Date(default=lambda d: fields.Date.today())
+
+    # Si quiero establecer por defecto la fecha y hora
+    last_login = fields.Datetime(default=lambda d: fields.Datetime.now())
     
-    last_login = fields.Datetime()
     is_student = fields.Boolean()
     photo = fields.Image(max_width=200, max_height=200) 
     classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
