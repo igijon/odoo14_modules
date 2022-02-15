@@ -18,7 +18,10 @@ class student(models.Model):
     
 
     description = fields.Text()
-    inscription_date = fields.Date()
+
+    # También es muy útil establecer como valor por defecto en los campos Date, la fecha de hoy
+    inscription_date = fields.Date(default=lambda d: fields.Date.today())
+    
     last_login = fields.Datetime()
     is_student = fields.Boolean()
     photo = fields.Image(max_width=200, max_height=200) 
