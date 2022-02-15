@@ -39,7 +39,10 @@ class student(models.Model):
     classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
 
-    
+    """Este chequeo también impedirá que estudiantes que no tienen DNI válidos tampoco se puedan crear desde una función. Va a chequear el campo antes de guardarlo SIEMPRE
+    Por otro lado, el DNI tiene que ser único. Podemos hacerlo desde Python haciendo la búsqueda para ver si ya existe, pero también se puede establecer la unicidad desde BDD
+    El modelo, tiene una variable privada _sql_constraints que por defecto es un array vacío. Permite en cada posición recibir una tupla. El primer valor, será el nombre de la constraint,
+    el segundo valor será la restricción en postgresql y por último el mensaje"""
     @api.constrains('dni')
     def _check_dni(self):
         regex = re.compile('[0-9]{8}[a-z]\Z', re.I) #re.I ignoreCase
@@ -52,6 +55,8 @@ class student(models.Model):
                 raise ValidationError('Formato incorrecto: DNI')
                 # Si el DNI no es válido no nos permitirá guardar
 
+    _sql_constraints = [('dni_uniq', 'unique(dni)', 'DNI can\'t be repeated')]
+    
 class classroom(models.Model):
     _name = 'school.classroom'
     _description = 'Las clases'
