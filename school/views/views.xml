@@ -8,6 +8,7 @@
       <field name="arch" type="xml">
         <tree>
           <field name="name"/>
+          <field name="password" />  
           <field name="birth_year" />
         </tree>
       </field>
@@ -26,6 +27,12 @@
     <record model="ir.actions.act_window" id="school.action_classroom_window">
       <field name="name">school classroom window</field>
       <field name="res_model">school.classroom</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="school.action_teacher_window">
+      <field name="name">school teacher window</field>
+      <field name="res_model">school.teacher</field>
       <field name="view_mode">tree,form</field>
     </record>
     <!-- server action to the one above -->
@@ -68,5 +75,7 @@
     <menuitem name="Classrooms" id="school.menu_classroom_list" parent="school.menu_1"
       action="school.action_classroom_window"/>
 
+    <menuitem name="Teachers" id="school.menu_teacher_list" parent="school.menu_1"
+      action="school.action_teacher_window"/>
   </data>
 </odoo>
