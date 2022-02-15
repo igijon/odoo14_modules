@@ -12,17 +12,11 @@ class student(models.Model):
     name = fields.Char(string="Nombre", readonly=False, required=True, help='Este es el nombre')
     birth_year = fields.Integer()
     
-      
-    def _get_password(self):
-        password = secrets.token_urlsafe(12) 
-        _logger.debug('\033[94m'+str(student)+'\033[0m')
-        return password
-
-    # En este caso, no añadimos comillas a la función porque queremos que sea el resultado de la ejecución de la funión.
-    # En este caso, self es la instancia del modelo, no un result set de estudiantes como en el caso de los campso calculados
-    password = fields.Char(default=_get_password) 
-    # password = fields.Char(default='1234')
+    # También podemos hacerlo con una función lambda. Estas funciones son funciones que aceptan sólo una línea de código
+    # aunque dicha línea de código llame a otra función.
+    password = fields.Char(default=lambda p: secrets.token_urlsafe(12)) 
     
+
     description = fields.Text()
     inscription_date = fields.Date()
     last_login = fields.Datetime()
