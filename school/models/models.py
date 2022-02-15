@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 import secrets
 import logging
+import re
 
 _logger = logging.getLogger(__name__)
 
@@ -11,6 +13,11 @@ class student(models.Model):
     
     name = fields.Char(string="Nombre", readonly=False, required=True, help='Este es el nombre')
     birth_year = fields.Integer()
+
+    """Vamos a añadir un DNI que va a ser de tipo Char. Los DNI tienen que cumplir un patrón
+    Para ello, vamos a crear una función con el decorador @api.constrains('dni') y debemos tener en cuenta que este tipo de funciones reciben una lista de estudiantes, no un único estudiante.
+    Para hacer este tipo de checkeos vamos a utilizar las expresiones regulares en python"""
+    dni = fields.Char(string="DNI")
     
     # También podemos hacerlo con una función lambda. Estas funciones son funciones que aceptan sólo una línea de código
     # aunque dicha línea de código llame a otra función.
@@ -32,6 +39,23 @@ class student(models.Model):
     classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
 
+    """Este chequeo también impedirá que estudiantes que no tienen DNI válidos tampoco se puedan crear desde una función. Va a chequear el campo antes de guardarlo SIEMPRE
+    Por otro lado, el DNI tiene que ser único. Podemos hacerlo desde Python haciendo la búsqueda para ver si ya existe, pero también se puede establecer la unicidad desde BDD
+    El modelo, tiene una variable privada _sql_constraints que por defecto es un array vacío. Permite en cada posición recibir una tupla. El primer valor, será el nombre de la constraint,
+    el segundo valor será la restricción en postgresql y por último el mensaje"""
+    @api.constrains('dni')
+    def _check_dni(self):
+        regex = re.compile('[0-9]{8}[a-z]\Z', re.I) #re.I ignoreCase
+        for student in self:
+            # Ahora vamos a validar si se cumple la condición
+            if regex.match(student.dni):
+                _logger.info('DNI correcto')
+            else:
+                # No coinciden por lo que tenemos que informar e impedir que se guarde
+                raise ValidationError('Formato incorrecto: DNI')
+                # Si el DNI no es válido no nos permitirá guardar
+
+    _sql_constraints = [('dni_uniq', 'unique(dni)', 'DNI can\'t be repeated')] #Todos los mensajes los deberíamos poner en inglés y luego traducir
 
 class classroom(models.Model):
     _name = 'school.classroom'
