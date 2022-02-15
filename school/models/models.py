@@ -55,8 +55,8 @@ class student(models.Model):
                 raise ValidationError('Formato incorrecto: DNI')
                 # Si el DNI no es válido no nos permitirá guardar
 
-    _sql_constraints = [('dni_uniq', 'unique(dni)', 'DNI can\'t be repeated')]
-    
+    _sql_constraints = [('dni_uniq', 'unique(dni)', 'DNI can\'t be repeated')] #Todos los mensajes los deberíamos poner en inglés y luego traducir
+
 class classroom(models.Model):
     _name = 'school.classroom'
     _description = 'Las clases'
