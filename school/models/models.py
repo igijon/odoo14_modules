@@ -12,22 +12,26 @@ class student(models.Model):
     name = fields.Char(string="Nombre", readonly=False, required=True, help='Este es el nombre')
     birth_year = fields.Integer()
     
-    password = fields.Char(compute='_get_password', store=True) 
+    # También podemos hacerlo con una función lambda. Estas funciones son funciones que aceptan sólo una línea de código
+    # aunque dicha línea de código llame a otra función.
+    password = fields.Char(default=lambda p: secrets.token_urlsafe(12)) 
+    
 
     description = fields.Text()
-    inscription_date = fields.Date()
-    last_login = fields.Datetime()
+
+    # También es muy útil establecer como valor por defecto en los campos Date, la fecha de hoy
+    inscription_date = fields.Date(default=lambda d: fields.Date.today())
+
+    # Si quiero establecer por defecto la fecha y hora
+    last_login = fields.Datetime(default=lambda d: fields.Datetime.now())
+
+    # Debemos hacerlo con una función lambda o con un puntero a función como hemos hecho antes con _get_password porque si directamente pusiésemos default: fields.Datetime().now(), se cargaría al iniciar
+    # el servicio pero no se cargaría cada vez que se crea un alumno, por ejemplo.
     is_student = fields.Boolean()
     photo = fields.Image(max_width=200, max_height=200) 
     classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
-    
-    @api.depends('name') 
-    def _get_password(self):
-        print(self)
-        for student in self:
-            student.password = secrets.token_urlsafe(12) 
-            _logger.debug('\033[94m'+str(student)+'\033[0m')
+
 
 class classroom(models.Model):
     _name = 'school.classroom'
