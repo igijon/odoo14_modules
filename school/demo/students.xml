@@ -4,7 +4,8 @@
             <field name='name'>Burk Shadbolt</field>
             <field name='dni'>04403108I</field>
             <field name='birth_year'>1992</field>
-            <!-- Para que los estudiantes pertenezcan a una clase tengo que hacer-->
+            <!-- Para que los estudiantes pertenezcan a una clase tengo que hacer
+            Vemos que cada cosa de Odoo: field, vista, modelo... tiene un id externo asociado-->
             <field name="classroom" ref="school.classroom1"></field>
         </record>
         <record id='student02742635H' model='school.student'>

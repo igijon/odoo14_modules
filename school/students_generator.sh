@@ -10,6 +10,7 @@ do
     echo "<field name='name'>$nombre</field>"
     echo "<field name='dni'>$dni</field>"
     echo "<field name='birth_year'>$year</field>"
+    echo "<field name='classroom' ref='school.classroom1'></field>"
     echo "</record>"
 done
 echo "</data>"
