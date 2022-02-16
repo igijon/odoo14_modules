@@ -17,7 +17,7 @@ echo "</data>"
 
 # Desde el terminal debo darle permisos con
 # chmod 777 students_generator.sh
-# para probarlo debemos hacer ./students_generator.hs < MOCK_DATA.csv
+# para probarlo debemos hacer ./students_generator.hs < MOCK_DATA.csv > demo/students.xml
 
 
 # DEBEMOS QUITAR EL PRIMER RECORD PORQUE AÑADE LA FILA DE LOS TÍTULOS O NO GENERARLOS EN EL CSV
