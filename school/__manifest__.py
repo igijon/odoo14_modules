@@ -27,5 +27,6 @@
     # only loaded in demonstration mode
     'demo': [
         'demo/demo.xml', # Para que se carguen los datos de demo debe estar el fichero aquí
+        'demo/students.xml',
     ],
 }
