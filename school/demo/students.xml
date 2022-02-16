@@ -14,6 +14,12 @@
             <field name='dni'>04403108I</field>
             <field name='birth_year'>1992</field>
             <field name='classroom' ref='school.classroom1'></field>
+            <!-- Vamos a hacer ahora que la fecha del last_login sea un valor calculado que sea el momento
+            en el que se actualiza el módulo y sólo en ese momento.
+            
+            Lo vamos a hacer desde el XML, para ello hay una propiedad eval que admite sólo expresiones Python
+            y no expresiones de Odoo-->
+            <field name='last_login' eval="(datetime.now()+timedelta(-1)).strftime(''%Y-%m-%d')"></field>
         </record>
         <record id='student02742635H' model='school.student'>
             <field name='name'>Olga Stag</field>
