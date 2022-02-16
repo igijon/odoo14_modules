@@ -19,5 +19,12 @@ También tenemos la opción de hacerlo en este fichero.
             <field name="dni">23456789N</field> <!-- Dni tiene que cumplir las restricciones -->
           </record>
 
+  <!-- Vamos a generar con la URL: https://www.mockaroo.com/ 1000 datos de prueba
+  Dejamos los campos
+  name de tipo Full Name, opciones por defecto
+  DNI de tipo Character Sequence, patrón ########^, opciones por defecto
+  birthyear, tipo Car Model Year, opciones por defecto
+  
+  Generamos 1000 filas incluyendo header -->
     </data>
 </odoo>
