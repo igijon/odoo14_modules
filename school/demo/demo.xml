@@ -19,6 +19,11 @@ También tenemos la opción de hacerlo en este fichero.
             <field name="dni">23456789N</field> <!-- Dni tiene que cumplir las restricciones -->
           </record>
 
+  <!-- Los estudiantes que hemos añadido no están asociados a ninguna clase, creamos una clase de ejemplo-->
+          <record id="classroom1" model="school.classroom">
+            <field name="name">DAM2</field>
+          </record>
+
   <!-- Vamos a generar con la URL: https://www.mockaroo.com/ 1000 datos de prueba
   Dejamos los campos
   name de tipo Full Name, opciones por defecto

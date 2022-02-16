@@ -12,8 +12,9 @@ do
     echo "<field name='birth_year'>$year</field>"
     echo "</record>"
 done
-echo "</odoo>"
 echo "</data>"
+echo "</odoo>"
+
 
 # Desde el terminal debo darle permisos con
 # chmod 777 students_generator.sh

@@ -1,10 +1,11 @@
 <odoo>
     <data>
-
         <record id='student04403108I' model='school.student'>
             <field name='name'>Burk Shadbolt</field>
             <field name='dni'>04403108I</field>
             <field name='birth_year'>1992</field>
+            <!-- Para que los estudiantes pertenezcan a una clase tengo que hacer-->
+            <field name="classroom" ref="school.classroom1"></field>
         </record>
         <record id='student02742635H' model='school.student'>
             <field name='name'>Olga Stag</field>
@@ -5001,5 +5002,5 @@
             <field name='dni'>97610746E</field>
             <field name='birth_year'>2007</field>
         </record>
-    </odoo>
-</data>
+    </data>
+</odoo>
