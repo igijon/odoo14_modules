@@ -32,7 +32,7 @@ También tenemos la opción de hacerlo en este fichero.
     <!-- Los estudiantes que hemos añadido no están asociados a ninguna clase, creamos una clase de ejemplo-->
     <record id="classroom1" model="school.classroom">
       <field name="name">DAM2</field>
-      <field name="teachers" eval="[(0,6,[ref('school.teacher1'),ref('school.teacher2')])]"></field>
+      <field name="teachers" eval="[(6,0,[ref('school.teacher1'),ref('school.teacher2')])]"></field>
       <!-- Ahora hemos creado unos profesores y vamos a añadirlos al aula. Tenemos que añadir al many2many
       de la clase esos dos profesores
       Un Many2many está esperando una lista de los ids
