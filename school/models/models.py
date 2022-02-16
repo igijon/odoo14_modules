@@ -85,6 +85,8 @@ class classroom(models.Model):
             if len(classroom.teachers) > 0:
                 # Si la clase no tiene profesores asociados esto fallará por ahora
                 classroom.coordinator = classroom.teachers[0].id
+            else:
+                classroom.coordinator = None # Para que no de error al calcular el coordinador
 
     def _get_teacher(self):
         for classroom in self:
