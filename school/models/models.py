@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api
+from odoo.exceptions import ValidationError
 import secrets
 import logging
+import re
 
 _logger = logging.getLogger(__name__)
 
@@ -15,29 +17,34 @@ class student(models.Model):
     name = fields.Char(string="Nombre", readonly=False, required=True, help='Este es el nombre')
     birth_year = fields.Integer()
 
-    password = fields.Char(compute='_get_password', store=True)
+    dni = fields.Char(string="DNI")
+
+    password = fields.Char(default=lambda p: secrets.token_urlsafe(12))
 
     description = fields.Text()
-    inscription_date = fields.Date()
-    last_login = fields.Datetime()
+
+    inscription_date = fields.Date(default=lambda d: fields.Date.today())
+    
+    last_login = fields.Datetime(default=lambda d: fields.Datetime.now())
+
     is_student = fields.Boolean()
     photo = fields.Image()
     # Este es el formato tradicional para guardar fotos, aunque ahora hay uno
     # imagen en las versiones actuales de Odoo que veremos después
     classroom = fields.Many2one('school.classroom', ondelete='set null', help='Clase a la que pertecene')
-    teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
+    teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)     
 
-
-    @api.depends('name')
-    def _get_password(self):
-        
+    @api.constrains('dni')
+    def _check_dni(self):
+        regex = re.compile('[0-9]{8}[a-z]\Z', re.I)
         for student in self:
-            student.password = secrets.token_urlsafe(12)
-            _logger.debug('\033[94m'+str(student)+'\033[0m')
-            
+            if regex.match(student.dni):
+                _logger.info('DNI correcto')
+            else:
+                raise ValidationError('Formato incorrecto: DNI')
 
+    _sql_constraints = [('dni_uniq', 'unique(dni)', 'DNI can\'t be repeated')]
 
-    
 class classroom(models.Model):
     _name = 'school.classroom'
     _description = 'Las clases'
