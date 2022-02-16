@@ -1,30 +1,64 @@
-<odoo>
-    <data>
-<!--
-          <record id="object0" model="school.school">
-            <field name="name">Object 0</field>
-            <field name="value">0</field>
-          </record>
+<!-- Los ficheros de datos son aquellos que permiten que un módulo añada datos a la BDD 
+Un ejemplo es views.xml que añade datos a tablas. Por ejemplo, introduce datos en el modelo ir.ui.view.
+Cada field será una de las columnas que se guardan, por tanto esto, ya es un fichero de datos.
 
-          <record id="object1" model="school.school">
-            <field name="name">Object 1</field>
-            <field name="value">10</field>
-          </record>
+Vamos a hacer otro fichero de datos de demo para que si seleccionan la opción de demo, tengamos estudiantes
+sobre los que trabajar.
 
-          <record id="object2" model="school.school">
-            <field name="name">Object 2</field>
-            <field name="value">20</field>
-          </record>
+Podemos tener un CSV que cumpla la estructura del modelo y se pueden importar datos directamente mediante la aplicación
+de Odoo, mediante la opción de importar. Esta sería la opción de hacerlo cuando
+ya está en producción y queremos importar datos.
 
-          <record id="object3" model="school.school">
-            <field name="name">Object 3</field>
-            <field name="value">30</field>
-          </record>
-
-          <record id="object4" model="school.school">
-            <field name="name">Object 4</field>
-            <field name="value">40</field>
-          </record>
+También tenemos la opción de hacerlo en este fichero.
 -->
-    </data>
+<odoo>
+  <data>
+
+    <record id="teacher1" model="school.teacher">
+      <field name="name">José Alberto</field>
+    </record>
+
+    <record id="teacher2" model="school.teacher">
+      <field name="name">Fernando</field>
+    </record>
+
+    <record id="student1" model="school.student">
+      <field name="name">Luisa</field>
+      <field name="dni">23456789N</field>      <!-- Dni tiene que cumplir las restricciones -->
+    </record>
+
+    <!-- Los estudiantes que hemos añadido no están asociados a ninguna clase, creamos una clase de ejemplo-->
+    <record id="classroom1" model="school.classroom">
+      <field name="name">DAM2</field>
+      <field name="teachers" eval="[(6,0,[ref('school.teacher1'),ref('school.teacher2')])]"></field>
+      <!-- Ahora hemos creado unos profesores y vamos a añadirlos al aula. Tenemos que añadir al many2many
+      de la clase esos dos profesores
+      Un Many2many está esperando una lista de los ids
+      Los valores iniciales significan lo siguiente:
+      
+    (0,_ ,{'field': value}): Crea un nuevo registro y lo vincula
+	•	(1,id,{'field': value}): Actualiza los valores en un registro ya vinculado.
+	•	(2,id,_): Desvincula y elimina el registro.
+	•	(3,id,_): Desvincula pero no elimina el registro de la relación.
+	•	(4,id,_): Vincula un registro ya existente.
+	•	(5,_,_): Desvincula pero no elimina todos los registros vinculados.
+	•	(6,_,[ids]): Reemplaza la lista de registros vinculados.
+
+  Lo más común es el 6 si queremos reemplazar o el 4 si no queremos reemplazar
+
+  En resumen, many2many necesita que le pasemos una tupla en la que quiere saber qué hacer con los
+  registros existentes y la lista de ids con los que referencia
+      -->
+    </record>
+
+
+
+    <!-- Vamos a generar con la URL: https://www.mockaroo.com/ 1000 datos de prueba
+  Dejamos los campos
+  name de tipo Full Name, opciones por defecto
+  DNI de tipo Character Sequence, patrón ########^, opciones por defecto
+  birthyear, tipo Car Model Year, opciones por defecto
+  
+  Generamos 1000 filas incluyendo header -->
+  </data>
 </odoo>
