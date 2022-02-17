@@ -11,6 +11,7 @@ do
     echo "<field name='dni'>$dni</field>"
     echo "<field name='birth_year'>$year</field>"
     echo "<field name='classroom' ref='school.classroom1'></field>"
+    echo "<field name='photo'>$(base64 student.png)</field>"
     echo "</record>"
 done
 echo "</data>"
@@ -20,6 +21,3 @@ echo "</odoo>"
 # Desde el terminal debo darle permisos con
 # chmod 777 students_generator.sh
 # para probarlo debemos hacer ./students_generator.hs < MOCK_DATA.csv > demo/students.xml
-
-
-# DEBEMOS QUITAR EL PRIMER RECORD PORQUE AÑADE LA FILA DE LOS TÍTULOS O NO GENERARLOS EN EL CSV
