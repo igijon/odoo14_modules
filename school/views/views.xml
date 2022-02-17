@@ -22,10 +22,10 @@
       <field name="name">school.student list</field>
       <field name="model">school.student</field>
       <field name="arch" type="xml">
-        <tree decoration-info="birth_year>2000"> 
+        <tree decoration-info="birth_year>2000" decoration-warning="birth_year&lt;1980"> <!-- Si quiero usar el símbolo <, tengo que usar &lt-->
           <field name="name"/>
           <field name="password" />
-          <field name="birth_year" invisible="1"/> <!-- Puedo hacer que un campo se evalúe pero no se muestre-->
+          <field name="birth_year" invisible="1"/> 
         </tree>
       </field>
     </record>
