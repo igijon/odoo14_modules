@@ -22,10 +22,11 @@
       <field name="name">school.student list</field>
       <field name="model">school.student</field>
       <field name="arch" type="xml">
-        <tree decoration-info="birth_year>2000" decoration-warning="birth_year&lt;1980"> <!-- Si quiero usar el símbolo <, tengo que usar &lt-->
+        <tree decoration-info="birth_year>2000" decoration-warning="birth_year&lt;1980"> 
           <field name="name"/>
           <field name="password" />
-          <field name="birth_year" invisible="1"/> 
+          <field name="birth_year" sum="Total"/> <!-- Tengo la posibilidad de añadir totales aunque
+          no tenga mucho sentido aquí-->
         </tree>
       </field>
     </record>
