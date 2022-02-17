@@ -22,7 +22,8 @@
       <field name="name">school.student list</field>
       <field name="model">school.student</field>
       <field name="arch" type="xml">
-        <tree decoration-info="birth_year>2000">
+        <tree decoration-info="birth_year>2000" editable="bottom"> <!-- La vista se puede hacer editable
+        pero el problema es que entonces no entramos en la vista formulario y no se suele utilizar-->
           <field name="name"/>
           <field name="password" />
           <field name="birth_year" />
