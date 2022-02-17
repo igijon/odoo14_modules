@@ -1,17 +1,32 @@
 <odoo>
   <data>
     <!-- explicit list view definition -->
+    <!-- Vistas tree: son las más fáciles de hacer. Record indica que se almacena algo en BDD, concretamente una vista porque se almacena en el modelo ir.ui.view
+    Las vistas para funcionar necesitan saber:
+    - Un no mbre que debería ser único
+    - El modelo sobre el que se implementa la vista
+    - Un archivo xml que indicará el tipo de vista. En este caso sólo tenemos especificado algo para la vista tree,
+    concretamente los campos que se van a mostrar en dicha vista. El resto de tipos de vistas lo tomará por defecto.
+    Todo esto después es interpretado por la aplicación cliente, en este caso JS de Odoo y será convertido en HTML. 
+    
+    No se hace en el backend en el servidor, sino en el frontend.
+    
+    Además de lo que conocemos podemos cambiar colores de algunas de las filas en función de algún criterio
+    
+    Hay distintos tipos de decoración aplicables que podéis consultar en la documentación, por ejemplo:
 
-    <!--A veces las vistas no cogen los cambios y debemos eliminarla desde Técnico > Interfaz de usuario > Vistas y al reiniciar el
-    servicio se vuelve a generar-->
-    <record model="ir.ui.view" id="school.student_list">
+    https://www.iwesabe.com/blog/how-to-add-colors-to-tree-view-in-odoo
+    
+    -->
+     <record model="ir.ui.view" id="school.student_list">
       <field name="name">school.student list</field>
       <field name="model">school.student</field>
       <field name="arch" type="xml">
-        <tree>
+        <tree decoration-info="birth_year>2000" decoration-warning="birth_year&lt;1980"> 
           <field name="name"/>
           <field name="password" />
-          <field name="birth_year" />
+          <field name="birth_year" sum="Total"/> <!-- Tengo la posibilidad de añadir totales aunque
+          no tenga mucho sentido aquí-->
         </tree>
       </field>
     </record>
