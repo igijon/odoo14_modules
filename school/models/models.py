@@ -35,6 +35,9 @@ class student(models.Model):
     # Debemos hacerlo con una función lambda o con un puntero a función como hemos hecho antes con _get_password porque si directamente pusiésemos default: fields.Datetime().now(), se cargaría al iniciar
     # el servicio pero no se cargaría cada vez que se crea un alumno, por ejemplo.
     is_student = fields.Boolean()
+
+    level = fields.Selection([('1','1'),('2','2')])
+    
     photo = fields.Image(max_width=200, max_height=200) 
     classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)

@@ -67,6 +67,8 @@
                 <field name="last_login" />
                 <field name="is_student" />
                 <field name="classroom" />
+                <field name="level" /> <!--Si ejecutamos esto vemos que podemos tener un alumno de 
+                ASIR1 con level 2-->
               </group>
             </group>
             <notebook>
