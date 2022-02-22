@@ -77,7 +77,9 @@
                 <field name="inscription_date" />
                 <field name="last_login" />
                 <field name="is_student" />
-                <field name="classroom" domain="[('level','=',level)]"/>
+                <field name="classroom" 
+                       attrs="{'invisible':[('is_student','=',False)]}"/>
+                <!--Ocultamos classroom si no está activo is_student-->
                 <field name="level" /> <!--Si pongo el filtro en la vista tarda más en aplicarse que si lo pongo en el modelo, queda a decisión del programador. Uno es suficiente-->
               </group>
             </group>
