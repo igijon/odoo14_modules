@@ -41,17 +41,21 @@
             <field name="photo" widget="image" class="oe_avatar"/>
             <!--Si le doy a editar tengo la opción de cambiar todo, incluída la foto-->
             <group>
-              <field name="name"/>
-              <field name="birth_year"/> 
-              <field name="password"/> 
-              <field name="dni" />
-              <field name="description" />
-              <field name="inscription_date" />
-              <field name="last_login" />
-              <field name="is_student" />
-              <field name="classroom" />
-              <field name="teachers" />
-            </group>
+              <group>
+                <field name="name"/>
+                <field name="birth_year"/> 
+                <field name="password"/> 
+                <field name="dni" />
+                <field name="description" />
+              </group>
+              <group>
+                <field name="inscription_date" />
+                <field name="last_login" />
+                <field name="is_student" />
+                <field name="classroom" />
+                <field name="teachers" />
+              </group>
+            <group>
           </sheet>
         </form>
       </field>
