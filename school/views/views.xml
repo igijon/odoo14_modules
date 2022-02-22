@@ -58,6 +58,8 @@
                 <field name="name"/>
                 <field name="birth_year"/> 
                 <field name="password" password="True"/> 
+                <button name="regenerate_password" type="object" string="Regenerate password"/>
+                <!-- Queremos que cuando pulse el botón se regenere y se guarde automáticamente en BDD-->
                 <field name="dni" />
                 <field name="description" />
               </group>

@@ -66,6 +66,13 @@ class student(models.Model):
 
     _sql_constraints = [('dni_uniq', 'unique(dni)', 'DNI can\'t be repeated')] #Todos los mensajes los deberíamos poner en inglés y luego traducir
 
+    #También recibe un recordset
+    def regenerate_password(self):
+        for student in self:
+                pw = secrets.token_urlsafe(12)
+                student.write({'password':pw})
+
+                
 class classroom(models.Model):
     _name = 'school.classroom'
     _description = 'Las clases'
