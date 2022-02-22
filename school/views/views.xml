@@ -76,7 +76,7 @@
                 <field name="dni" />
                 <field name="description" />
               </group>
-              <group states="2"> <!-- Este grupo sólo se mostrará si state está en 2-->
+              <group> <!-- Quito el estado porque sólo era un ejemplo, puedo añadir botones que cambian de estado...-->
                 <separator string="Inscription Data"></separator>
                 <field name="inscription_date" />
                 <field name="last_login" />
