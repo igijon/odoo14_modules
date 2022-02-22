@@ -55,6 +55,8 @@
                 <div class="o_form_field o_stat_info">
                   <span class="o_stat_value">
                     <field name="password" string="Password"/>
+                    <!-- En el ejemplo va a mostrar sólo una parte porque tiene unas dimensiones concretas
+                    -->
                   </span>
                   <span class="o_stat_text">Password</span>
                 </div>
