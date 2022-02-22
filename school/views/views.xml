@@ -55,9 +55,11 @@
                 <field name="classroom" />
               </group>
             </group>
-            <group>
-              <field name="teachers" />
-            </group>
+            <notebook>
+              <page string="Teachers">
+                <field name="teachers"/>
+              </page>
+            </notebook>
           </sheet>
         </form>
       </field>
