@@ -35,10 +35,21 @@ class student(models.Model):
     # Debemos hacerlo con una función lambda o con un puntero a función como hemos hecho antes con _get_password porque si directamente pusiésemos default: fields.Datetime().now(), se cargaría al iniciar
     # el servicio pero no se cargaría cada vez que se crea un alumno, por ejemplo.
     is_student = fields.Boolean()
+
+    level = fields.Selection([('1','1'),('2','2')])
+
     photo = fields.Image(max_width=200, max_height=200) 
-    classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
+
+    """ Para que un estudiante cuando esté relacionado con la clase no pueda tener un level diferente
+    al de su clase establecemos un filtro. En este caso recibe una lista de tuplas, cada tupla tiene tres
+    elementos, el primer campo se refiere al level remoto (la clase relacionada) y el segundo level al actual
+    El actual (no remoto) va sin comilla
+    """
+    classroom = fields.Many2one("school.classroom", domain="[('level','=',level)]", ondelete='set null', help='Clase a la que pertenece')
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
 
+    state = fields.Selection([('1', 'Matriculado'), ('2', 'Estudiante'), ('3', 'Ex-estudiante')], default="1")
+    
     """Este chequeo también impedirá que estudiantes que no tienen DNI válidos tampoco se puedan crear desde una función. Va a chequear el campo antes de guardarlo SIEMPRE
     Por otro lado, el DNI tiene que ser único. Podemos hacerlo desde Python haciendo la búsqueda para ver si ya existe, pero también se puede establecer la unicidad desde BDD
     El modelo, tiene una variable privada _sql_constraints que por defecto es un array vacío. Permite en cada posición recibir una tupla. El primer valor, será el nombre de la constraint,
@@ -57,11 +68,22 @@ class student(models.Model):
 
     _sql_constraints = [('dni_uniq', 'unique(dni)', 'DNI can\'t be repeated')] #Todos los mensajes los deberíamos poner en inglés y luego traducir
 
+    #También recibe un recordset
+    def regenerate_password(self):
+        for student in self:
+                pw = secrets.token_urlsafe(12)
+                student.write({'password':pw})
+
+
 class classroom(models.Model):
     _name = 'school.classroom'
     _description = 'Las clases'
 
     name = fields.Char() 
+    level = fields.Selection([('1','1'),('2','2')])
+    """Añadimos el campo level que será un desplegable para elegir una opción que se guarda en la BDD
+    Recibe una lista de tuplas, el primer valor de la tupla es lo que se guarda en la BDD y el segundo
+    el texto que muestra"""
     students = fields.One2many(string="Alumnos", comodel_name='school.student', inverse_name='classroom')
     
     teachers = fields.Many2many(comodel_name='school.teacher',
@@ -100,6 +122,9 @@ class teacher(models.Model):
     _description = 'Los profesores'
 
     name = fields.Char()
+    topic = fields.Char()
+    phone = fields.Char()
+
     # un profesor puede dar clase en varias aulas y en un aula, varios profesores
     classrooms = fields.Many2many(comodel_name='school.classroom',
                                   relation='teachers_classroom',
