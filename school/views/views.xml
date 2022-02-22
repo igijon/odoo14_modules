@@ -36,10 +36,12 @@
       <field name="name">school.student form</field>
       <field name="model">school.student</field>
       <field name="arch" type="xml">
-        <form> 
-          <field name="name"/>
-          <field name="dni" />
-          <field name="birth_year"/> 
+        <form>
+          <sheet> <!--Necesito crear un sheet y dentro necesito también que los fields se encuentren agrupados-->
+            <field name="name"/>
+            <field name="dni" />
+            <field name="birth_year"/> 
+          </sheet>
         </form>
       </field>
     </record>
