@@ -62,6 +62,10 @@ class classroom(models.Model):
     _description = 'Las clases'
 
     name = fields.Char() 
+    level = fields.Selection([('1','1'),('2','2')])
+    """Añadimos el campo level que será un desplegable para elegir una opción que se guarda en la BDD
+    Recibe una lista de tuplas, el primer valor de la tupla es lo que se guarda en la BDD y el segundo
+    el texto que muestra"""
     students = fields.One2many(string="Alumnos", comodel_name='school.student', inverse_name='classroom')
     
     teachers = fields.Many2many(comodel_name='school.teacher',
@@ -102,7 +106,7 @@ class teacher(models.Model):
     name = fields.Char()
     topic = fields.Char()
     phone = fields.Char()
-    
+
     # un profesor puede dar clase en varias aulas y en un aula, varios profesores
     classrooms = fields.Many2many(comodel_name='school.classroom',
                                   relation='teachers_classroom',
