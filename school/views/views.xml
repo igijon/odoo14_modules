@@ -38,9 +38,19 @@
       <field name="arch" type="xml">
         <form>
           <sheet> <!--Necesito crear un sheet y dentro necesito también que los fields se encuentren agrupados-->
-            <field name="name"/>
-            <field name="dni" />
-            <field name="birth_year"/> 
+            <group>
+              <field name="name"/>
+              <field name="birth_year"/> 
+              <field name="password"/> 
+              <field name="dni" />
+              <field name="description" />
+              <field name="inscription_date" />
+              <field name="last_login" />
+              <field name="is_student" />
+              <field name="photo" />
+              <field name="classroom" />
+              <field name="teachers" />
+            </group>
           </sheet>
         </form>
       </field>
