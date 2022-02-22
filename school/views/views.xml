@@ -49,17 +49,24 @@
       <field name="model">school.student</field>
       <field name="arch" type="xml">
         <form>
-          <sheet> <!--Necesito crear un sheet y dentro necesito también que los fields se encuentren agrupados-->
+          <sheet> 
+            <div class="oe_button_box">
+              <button type="object" class="oe_stat_button" icon="fa-pencil-square-o"  name="regenerate_password">
+                <div class="o_form_field o_stat_info">
+                  <span class="o_stat_value">
+                    <field name="password" string="Password"/>
+                  </span>
+                  <span class="o_stat_text">Password</span>
+                </div>
+              </button>
+            </div>
             <field name="photo" widget="image" class="oe_avatar"/>
-            <!--Si le doy a editar tengo la opción de cambiar todo, incluída la foto-->
             <group>
               <group>
                 <separator string="Personal Data"></separator>
                 <field name="name"/>
                 <field name="birth_year"/> 
-                <field name="password" password="True"/> 
-                <button name="regenerate_password" type="object" string="Regenerate password"/>
-                <!-- Queremos que cuando pulse el botón se regenere y se guarde automáticamente en BDD-->
+                <field name="password"/> 
                 <field name="dni" />
                 <field name="description" />
               </group>
