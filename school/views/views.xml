@@ -57,7 +57,7 @@
                 <separator string="Personal Data"></separator>
                 <field name="name"/>
                 <field name="birth_year"/> 
-                <field name="password"/> 
+                <field name="password" password="True"/> 
                 <field name="dni" />
                 <field name="description" />
               </group>
