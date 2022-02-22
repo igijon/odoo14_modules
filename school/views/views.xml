@@ -53,8 +53,10 @@
                 <field name="last_login" />
                 <field name="is_student" />
                 <field name="classroom" />
-                <field name="teachers" />
               </group>
+            </group>
+            <group>
+              <field name="teachers" />
             </group>
           </sheet>
         </form>
