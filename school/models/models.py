@@ -100,6 +100,9 @@ class teacher(models.Model):
     _description = 'Los profesores'
 
     name = fields.Char()
+    topic = fields.Char()
+    phone = fields.Char()
+    
     # un profesor puede dar clase en varias aulas y en un aula, varios profesores
     classrooms = fields.Many2many(comodel_name='school.classroom',
                                   relation='teachers_classroom',
