@@ -82,8 +82,9 @@
                 <field name="last_login" />
                 <field name="is_student" />
                 <field name="classroom" 
-                       attrs="{'invisible':[('is_student','=',False)]}"/>
-                <!--Ocultamos classroom si no está activo is_student-->
+                       attrs="{'invisible':[('is_student','=',False)],
+                               'required':[('is_student','=',True)]}"/>
+                <!--Podemos añadir más atributos condicionales y también por ejemplo que sean de solo lectura en casos concretos...-->
                 <field name="level" /> <!--Si pongo el filtro en la vista tarda más en aplicarse que si lo pongo en el modelo, queda a decisión del programador. Uno es suficiente-->
               </group>
             </group>
