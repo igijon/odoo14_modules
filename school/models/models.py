@@ -37,9 +37,15 @@ class student(models.Model):
     is_student = fields.Boolean()
 
     level = fields.Selection([('1','1'),('2','2')])
-    
+
     photo = fields.Image(max_width=200, max_height=200) 
-    classroom = fields.Many2one("school.classroom", ondelete='set null', help='Clase a la que pertenece')
+
+    """ Para que un estudiante cuando esté relacionado con la clase no pueda tener un level diferente
+    al de su clase establecemos un filtro. En este caso recibe una lista de tuplas, cada tupla tiene tres
+    elementos, el primer campo se refiere al level remoto (la clase relacionada) y el segundo level al actual
+    El actual (no remoto) va sin comilla
+    """
+    classroom = fields.Many2one("school.classroom", domain="[('level','=',level)]", ondelete='set null', help='Clase a la que pertenece')
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
 
     """Este chequeo también impedirá que estudiantes que no tienen DNI válidos tampoco se puedan crear desde una función. Va a chequear el campo antes de guardarlo SIEMPRE
