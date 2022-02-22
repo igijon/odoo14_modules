@@ -48,6 +48,8 @@ class student(models.Model):
     classroom = fields.Many2one("school.classroom", domain="[('level','=',level)]", ondelete='set null', help='Clase a la que pertenece')
     teachers = fields.Many2many('school.teacher', related='classroom.teachers', readonly=True)
 
+    state = fields.Selection([('1', 'Matriculado'), ('2', 'Estudiante'), ('3', 'Ex-estudiante')], default="1")
+    
     """Este chequeo también impedirá que estudiantes que no tienen DNI válidos tampoco se puedan crear desde una función. Va a chequear el campo antes de guardarlo SIEMPRE
     Por otro lado, el DNI tiene que ser único. Podemos hacerlo desde Python haciendo la búsqueda para ver si ya existe, pero también se puede establecer la unicidad desde BDD
     El modelo, tiene una variable privada _sql_constraints que por defecto es un array vacío. Permite en cada posición recibir una tupla. El primer valor, será el nombre de la constraint,
@@ -72,7 +74,7 @@ class student(models.Model):
                 pw = secrets.token_urlsafe(12)
                 student.write({'password':pw})
 
-                
+
 class classroom(models.Model):
     _name = 'school.classroom'
     _description = 'Las clases'
