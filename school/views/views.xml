@@ -50,7 +50,7 @@
       <field name="arch" type="xml">
         <form>
           <header>
-          
+
             <field name="state" widget="statusbar"></field>
           </header>
           <sheet> 
@@ -76,7 +76,7 @@
                 <field name="dni" />
                 <field name="description" />
               </group>
-              <group>
+              <group states="2"> <!-- Este grupo sólo se mostrará si state está en 2-->
                 <separator string="Inscription Data"></separator>
                 <field name="inscription_date" />
                 <field name="last_login" />
