@@ -38,6 +38,8 @@
       <field name="arch" type="xml">
         <form>
           <sheet> <!--Necesito crear un sheet y dentro necesito también que los fields se encuentren agrupados-->
+            <field name="photo" widget="image" class="oe_avatar"/>
+            <!--Si le doy a editar tengo la opción de cambiar todo, incluída la foto-->
             <group>
               <field name="name"/>
               <field name="birth_year"/> 
@@ -47,7 +49,6 @@
               <field name="inscription_date" />
               <field name="last_login" />
               <field name="is_student" />
-              <field name="photo" />
               <field name="classroom" />
               <field name="teachers" />
             </group>
