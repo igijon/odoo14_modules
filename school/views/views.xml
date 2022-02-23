@@ -209,6 +209,10 @@
           Esto no es del todo correcto porque variará con el año pero es sólo un ejemplo-->
           <filter name="adult" string="Adult students" domain="[('birth_year','&lt;=','2004')]"></filter>
 
+
+          <!-- Vamos a añadir un filtro de agrupación, por classroom
+          Podemos verlo en el botón al lado de filtros: Agrupar por-->
+          <filter name="group_by_classroom" string="Group by classroom" context="{'group_by':'classroom'}"></filter>
         </search>
       </field>
     </record>
