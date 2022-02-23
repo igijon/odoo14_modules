@@ -129,11 +129,18 @@
       <field name="name">school.student kanban</field>
       <field name="model">school.student</field>
       <field name="arch" type="xml">
-        <kanban default_group_by="classroom">
+        <kanban>
           <field name="id"></field>
+          <field name="classroom"></field>
           <templates>
             <t t-name="kanban-box">
-              <div t-attf-class="oe_kanban_global_click o_kanban_record_has_image_fill">
+              <div t-attf-class="oe_kanban_color_{{kanban_getcolor(record.classroom.raw_value)}} oe_kanban_global_click o_kanban_record_has_image_fill">
+              <!-- Hemos asignado al div una clase de odoo oe_kanban_color# que a continuación recibe un número que asociará con un color. El número lo 
+              calcula a partir de una función javascript de odoo que es kanban_getcolor. Esta función recibe el valor de la clase y a partir de ese número
+              devuelve un color que se concatenará a la clase y se pintará de un color. No estamos decidiendo realmente el color, pero sí asignando un color
+              diferente en función del identificador de la clase del componente.
+              
+              Para que la función JS pueda acceder a classroom también tenemos que añadir el field fuera de templates-->
                 <a type="open">
                   <img width="150" style="padding:5px" class="oe_kanban_image"
                     t-att-src="kanban_image('school.student', 'photo', record.id.raw_value)"
