@@ -129,7 +129,8 @@
       <field name="name">school.student kanban</field>
       <field name="model">school.student</field>
       <field name="arch" type="xml">
-        <kanban>
+        <kanban default_group_by="classroom" on_create="quick_create"
+          quick_create_view="school.quick_create_student_form">
           <field name="id"></field>
           <field name="classroom"></field>
           <templates>
@@ -162,6 +163,23 @@
             </t>
           </templates>
         </kanban>
+      </field>
+    </record>
+
+
+    <!--Formulario de creación rápida de estudiantes-->
+    <record id="school.quick_create_student_form" model="ir.ui.view">
+      <field name="name">school.student form quickcreate</field>
+      <field name="model">school.student</field>
+      <field name="arch" type="xml">
+        <form>
+            <group>
+              <field name="name"/>    
+              <field name="birth_year"/>    
+              <field name="classroom"/>    
+              <field name="level"/>    
+            </group>
+        </form>
       </field>
     </record>
 
