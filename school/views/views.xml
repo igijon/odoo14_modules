@@ -129,7 +129,7 @@
       <field name="name">school.student kanban</field>
       <field name="model">school.student</field>
       <field name="arch" type="xml">
-        <kanban>
+        <kanban default_group_by="classroom">
           <field name="id"></field>
           <templates>
             <t t-name="kanban-box">
