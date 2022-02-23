@@ -183,6 +183,39 @@
       </field>
     </record>
 
+    <!-- La vista search no es tanto lo que veo como los criterios de búsqueda y funcionan tanto en la vista kanban como en la tree
+    Es fácil de hacer
+    
+    En el buscador veremos que nos permite buscar por nombre o DNI. Si metiese un número también nos daría la opción de buscar por 
+    año de nacimiento
+    
+    Criterios de búsqueda:
+    - Piodemos buscar por un campo de búsqueda
+    - Podemos hacer filtros predefinidos
+    - Podemos agrupar según un criterio
+    -->
+
+    <record id="school.student_search" model="ir.ui.view">
+      <field name="name">school.student search</field>
+      <field name="model">school.student</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name"/>
+          <field name="dni"/>
+          <field name="birth_year" string="Min Year" filter_domain="[('birth_year','>=', self)]"/>
+          <!-- Esto buscará los estudiantes cuyo año de nacimiento sea mayor o igual al introducido en el campo de búsqueda-->
+
+          <!--Vamos a añadir un filtro para que muestre todos los estudiantes mayores de edad... se visualiza en el botón filtros debajo del campo de búsqueda
+          Esto no es del todo correcto porque variará con el año pero es sólo un ejemplo-->
+          <filter name="adult" string="Adult students" domain="[('birth_year','&lt;=','2004')]"></filter>
+
+
+          <!-- Vamos a añadir un filtro de agrupación, por classroom
+          Podemos verlo en el botón al lado de filtros: Agrupar por-->
+          <filter name="group_by_classroom" string="Group by classroom" context="{'group_by':'classroom'}"></filter>
+        </search>
+      </field>
+    </record>
 
     <!-- actions opening views on models -->
     <!--Activamos la vista kanban
