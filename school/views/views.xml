@@ -187,7 +187,13 @@
     Es fácil de hacer
     
     En el buscador veremos que nos permite buscar por nombre o DNI. Si metiese un número también nos daría la opción de buscar por 
-    año de nacimiento-->
+    año de nacimiento
+    
+    Criterios de búsqueda:
+    - Piodemos buscar por un campo de búsqueda
+    - Podemos hacer filtros predefinidos
+    - Podemos agrupar según un criterio
+    -->
 
     <record id="school.student_search" model="ir.ui.view">
       <field name="name">school.student search</field>
@@ -196,7 +202,8 @@
         <search>
           <field name="name"/>
           <field name="dni"/>
-          <field name="birth_year"/>
+          <field name="birth_year" string="Min Year" filter_domain="[('birth_year','>=', self)]"/>
+          <!-- Esto buscará los estudiantes cuyo año de nacimiento sea mayor o igual al introducido en el campo de búsqueda-->
         </search>
       </field>
     </record>
