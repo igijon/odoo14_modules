@@ -107,11 +107,14 @@
     </record>
 
     <!-- actions opening views on models -->
-
+    <!--Activamos la vista kanban
+    ESta vista muestra un card con inforamción básica. Esta vista para desarrollo es la más complicada y la sintaxis es cercana al HTML, 
+    concretamente al qweb que vimos para hacer plantillas.
+    Habilitando la vista kanban aparece un card con los nombres y se habilita el botón a la derecha-->
     <record model="ir.actions.act_window" id="school.action_student_window">
       <field name="name">school student window</field>
       <field name="res_model">school.student</field>
-      <field name="view_mode">tree,form</field>
+      <field name="view_mode">tree,form,kanban</field>
     </record>
 
 
