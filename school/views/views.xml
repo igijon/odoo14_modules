@@ -183,6 +183,23 @@
       </field>
     </record>
 
+    <!-- La vista search no es tanto lo que veo como los criterios de búsqueda y funcionan tanto en la vista kanban como en la tree
+    Es fácil de hacer
+    
+    En el buscador veremos que nos permite buscar por nombre o DNI. Si metiese un número también nos daría la opción de buscar por 
+    año de nacimiento-->
+
+    <record id="school.student_search" model="ir.ui.view">
+      <field name="name">school.student search</field>
+      <field name="model">school.student</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name"/>
+          <field name="dni"/>
+          <field name="birth_year"/>
+        </search>
+      </field>
+    </record>
 
     <!-- actions opening views on models -->
     <!--Activamos la vista kanban
