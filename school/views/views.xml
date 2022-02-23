@@ -204,6 +204,11 @@
           <field name="dni"/>
           <field name="birth_year" string="Min Year" filter_domain="[('birth_year','>=', self)]"/>
           <!-- Esto buscará los estudiantes cuyo año de nacimiento sea mayor o igual al introducido en el campo de búsqueda-->
+
+          <!--Vamos a añadir un filtro para que muestre todos los estudiantes mayores de edad... se visualiza en el botón filtros debajo del campo de búsqueda
+          Esto no es del todo correcto porque variará con el año pero es sólo un ejemplo-->
+          <filter name="adult" string="Adult students" domain="[('birth_year','&lt;=','2004')]"></filter>
+
         </search>
       </field>
     </record>
