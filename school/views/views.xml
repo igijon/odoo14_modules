@@ -217,6 +217,23 @@
       </field>
     </record>
 
+    <record id="school.seminar_calendar" model="ir.ui.view">
+      <field name="name">school.seminar calendar</field>
+      <field name="model">school.seminar</field>
+      <field name="arch" type="xml">
+        <calendar string="Seminar calendar" date_start="date" date_stop="finish" color="classroom">
+        <!-- El color no lo elegimos, se calculará en función del identificador 
+        también se puede poner date_start y date_delay, indicando en este atributo la duración en horas, por lo que podría
+        tomar un field que indicase las horas por ejemplo date_delay="hours"
+        
+        Podemos establecer también cuánto dura un día, por defecto 8 horas, pero se puede cambiar.
+        También hay una opción mode, para mostrar en modo días, meses, semanas...
+        tenemos que crear el menú y el action-->
+          <field name="name"/>
+        </calendar>
+      </field>
+    </record>
+
     <!-- actions opening views on models -->
     <!--Activamos la vista kanban
     ESta vista muestra un card con inforamción básica. Esta vista para desarrollo es la más complicada y la sintaxis es cercana al HTML, 
@@ -239,6 +256,12 @@
       <field name="name">school teacher window</field>
       <field name="res_model">school.teacher</field>
       <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="school.action_seminar_window">
+      <field name="name">school seminar window</field>
+      <field name="res_model">school.seminar</field>
+      <field name="view_mode">tree,form,calendar</field>
     </record>
     <!-- server action to the one above -->
 <!--
@@ -282,5 +305,8 @@
 
     <menuitem name="Teachers" id="school.menu_teacher_list" parent="school.menu_1"
       action="school.action_teacher_window"/>
+
+    <menuitem name="Seminars" id="school.menu_seminar_list" parent="school.menu_1"
+      action="school.action_seminar_window"/>
   </data>
 </odoo>
