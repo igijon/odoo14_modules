@@ -14,6 +14,74 @@
       </field>
     </record>
 
+    <record model="ir.ui.view" id="school.teacher_list">
+      <field name="name">school.teacher list</field>
+      <field name="model">school.teacher</field>
+      <field name="arch" type="xml">
+        <tree> 
+          <field name="name"/>
+          <field name="topic" />  
+          <field name="phone"/>
+        </tree>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="school.student_form">
+      <field name="name">school.student form</field>
+      <field name="model">school.student</field>
+      <field name="arch" type="xml">
+        <form> 
+          <header>
+            <field name="state" widget="statusbar"></field>
+          </header>
+          <sheet>
+            
+            <div class="oe_button_box">
+              <button type="object" class="oe_stat_button" icon="fa-pencil-square-o"  name="regenerate_password">
+                <div class="o_form_field o_stat_info">
+                  <span class="o_stat_value">
+                    <field name="password" string="Password"/>
+                  </span>
+                  <span class="o_stat_text">Password</span>
+                </div>
+              </button>
+            </div>
+
+            <field name="photo" widget="image" class="oe_avatar"/>
+            <group>
+              <group>
+                <separator string="Personal Data"></separator>
+                <field name="name"/>
+                <field name="birth_year"/> 
+                <field name="password"/> 
+                <field name="dni" />
+                <field name="description" />
+              </group>
+              <group>
+                <separator string="Inscription Data"></separator>
+                <field name="inscription_date" />
+                <field name="last_login" />
+                <field name="is_student" />
+                <field name="classroom" 
+                       attrs="{'invisible':[('is_student','=',False)],
+                                'required':[('is_student','=',True)]}" />
+                <field name="level" />
+              </group>
+            </group>
+            <notebook>
+              <page string="Teachers">
+                <field name="teachers">
+                  <tree>
+                    <field name="name"/>
+                    <field name="topic"/>
+                  </tree>
+                </field>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
 
     <!-- actions opening views on models -->
 
